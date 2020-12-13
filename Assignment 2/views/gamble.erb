@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-8">
+        <% if session[:error].nil? || session[:error] %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                Place your bet on dice number (1 to 6) with any positive number bet.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <% elsif session[:win] %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Nice guess! 🎉
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <% else %>
+            <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                Better luck next time. 😢
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <% end %>
+
+        <form action="/bet" method="post">
+            <div class="form-group row">
+                <label class="col col-form-label">Bet money</label>
+                <div class="col">
+                    <input autofocus type="number" class="form-control italic" name="money" min="1" placeholder="Any positive number">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col col-form-label">On dice number</label>
+                <div class="col">
+                    <input type="number" class="form-control italic" min="1" max="6" name="guess" placeholder="1 to 6">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <button type="submit" class="btn btn-dark float-right">Bet</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="col">
+        <form>
+            <fieldset disabled>
+                <div class="form-group">
+                    <label for="disabledTextInput">Total Win</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder=<%= session[:totalWin] %>>
+                </div>
+
+                <div class="form-group">
+                    <label for="disabledTextInput">Total Loss</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder=<%= session[:totalLoss] %>>
+                </div>
+
+                <div class="form-group">
+                    <label for="disabledTextInput">Total Profit</label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder=<%= session[:totalWin].to_i - session[:totalLoss].to_i %>>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="card bg-info">
+        <div class="card-body">
+            <h1>User: <%= session[:username] %></h1>
+
+            <form>
+                <fieldset disabled>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="disabledTextInput">Total Win</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder=<%= session[:user].totalWin %>>
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="disabledTextInput">Total Loss</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder=<%= session[:user].totalLoss %>>
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="disabledTextInput">Total Profit</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder=<%= session[:user].totalWin.to_i - session[:user].totalLoss.to_i %>>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <a href="/logout" class="btn btn-danger float-right">LOGOUT</a>
+        </div>
+    </div>
+</div>

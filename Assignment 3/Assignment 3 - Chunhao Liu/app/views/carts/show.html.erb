@@ -1,0 +1,35 @@
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Your Shopping Cart</h1>
+
+
+<% if @cart.lineitems.length > 0 %>
+<table>
+    <thead>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </thead>
+
+    <% @cart.lineitems.each do |lineitem| %>
+    <tr>
+        <td style='text-align: left;'><%= lineitem.product.name %></td>
+        <td style='text-align: center;'><%= lineitem.quantity %></td>
+        <td style='text-align: right;'>$<%= lineitem.product.price * lineitem.quantity %></td>
+    </tr>
+    <% end %>
+
+    <tr>
+        <td colspan="2">Total</td>
+        <td>$<%= @cart.total_price %></td>
+    </tr>
+</table>
+<br>
+
+<div>
+    <%= button_to 'Empty Cart', @cart, method: :delete, data: {confirm: 'Are you sure?'} %>
+    <%= button_to 'Check Out', new_order_path, method: :get %>
+</div>
+<% end %>

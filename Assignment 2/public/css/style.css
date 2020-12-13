@@ -1,0 +1,19 @@
+.italic::placeholder {
+    font-style: italic;
+}
+
+.navbar .container {
+    cursor: default;
+}
+
+.navbar h1 {
+    color: #ffffff;
+}
+
+body > .container {
+    padding-top: 20px;
+}
+
+.card {
+    width: 100%;
+}
